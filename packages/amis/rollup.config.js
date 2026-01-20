@@ -5,7 +5,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import license from 'rollup-plugin-license';
 import autoExternal from 'rollup-plugin-auto-external';
-import {name, version, author, main, module} from './package.json';
+import { name, version, author, main, module } from './package.json';
 import path from 'path';
 import fs from 'fs';
 import svgr from '@svgr/rollup';
@@ -93,7 +93,7 @@ export default [
 function transpileDynamicImportForCJS(options) {
   return {
     name: 'transpile-dynamic-import-for-cjs',
-    renderDynamicImport({format, targetModuleId}) {
+    renderDynamicImport({ format, targetModuleId }) {
       if (format !== 'cjs') {
         return null;
       }
@@ -151,7 +151,7 @@ function getPlugins(format = 'esm') {
     'amis-formula',
     'amis-core',
     'amis-ui',
-    'office-viewer'
+    // 'office-viewer'
   ].reduce(
     (prev, current) => ({
       ...prev,
@@ -165,20 +165,20 @@ function getPlugins(format = 'esm') {
     outputToFilesystem: true,
     ...(format === 'esm'
       ? {
-          compilerOptions: {
-            rootDir: './src',
-            outDir: path.dirname(module),
-            /** 覆盖继承自顶层tsconfig的paths配置，编译时应该去掉，避免报错@rollup/plugin-typescript TS6305 */
-            paths: overridePaths
-          }
+        compilerOptions: {
+          rootDir: './src',
+          outDir: path.dirname(module),
+          /** 覆盖继承自顶层tsconfig的paths配置，编译时应该去掉，避免报错@rollup/plugin-typescript TS6305 */
+          paths: overridePaths
         }
+      }
       : {
-          compilerOptions: {
-            rootDir: './src',
-            outDir: path.dirname(main),
-            paths: overridePaths
-          }
-        })
+        compilerOptions: {
+          rootDir: './src',
+          outDir: path.dirname(main),
+          paths: overridePaths
+        }
+      })
   };
 
   return [
@@ -200,36 +200,36 @@ function getPlugins(format = 'esm') {
     format === 'esm'
       ? null
       : babel({
-          exclude: 'node_modules/**',
-          extensions: ['.jsx', '.tsx', '.js', '.ts'],
-          plugins: [
-            [
-              'import',
-              {
-                libraryName: 'amis-ui',
-                libraryDirectory: 'lib',
-                camel2DashComponentName: false,
-                customName: (name, file) => {
-                  if (
-                    ['alert', 'confirm', 'setRenderSchemaFn'].includes(name)
-                  ) {
-                    return `amis-ui/lib/components/Alert`;
-                  } else if (['toast'].includes(name)) {
-                    return `amis-ui/lib/components/Toast`;
-                  } else if ('NotFound' === name) {
-                    return `amis-ui/lib/components/404`;
-                  } else if (['withStore', 'withRemoteConfig'].includes(name)) {
-                    return `amis-ui/lib/${name}`;
-                  } /* else if (name[0].toUpperCase() === name[0]) {
+        exclude: 'node_modules/**',
+        extensions: ['.jsx', '.tsx', '.js', '.ts'],
+        plugins: [
+          [
+            'import',
+            {
+              libraryName: 'amis-ui',
+              libraryDirectory: 'lib',
+              camel2DashComponentName: false,
+              customName: (name, file) => {
+                if (
+                  ['alert', 'confirm', 'setRenderSchemaFn'].includes(name)
+                ) {
+                  return `amis-ui/lib/components/Alert`;
+                } else if (['toast'].includes(name)) {
+                  return `amis-ui/lib/components/Toast`;
+                } else if ('NotFound' === name) {
+                  return `amis-ui/lib/components/404`;
+                } else if (['withStore', 'withRemoteConfig'].includes(name)) {
+                  return `amis-ui/lib/${name}`;
+                } /* else if (name[0].toUpperCase() === name[0]) {
                     return `amis-ui/lib/components/${name}`;
                   }*/
-                  return `amis-ui/lib/components/${name}`;
-                }
-              },
-              'amis-ui'
-            ]
+                return `amis-ui/lib/components/${name}`;
+              }
+            },
+            'amis-ui'
           ]
-        }),
+        ]
+      }),
     typescript(typeScriptOptions),
     commonjs({
       sourceMap: false

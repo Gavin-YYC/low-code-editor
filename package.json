@@ -37,7 +37,7 @@
     "clean": "rimraf dist",
     "build": "npm i && npm run clean && npm run build-all && npm run build-dist",
     "build-echo": "npm i && echo 'build'",
-    "build-dist": "vite build --config vite.umd.config.ts",
+    "build-dist": "NODE_OPTIONS=--max-old-space-size=8192 vite build --config vite.umd.config.ts",
     "build-all": "npm run build --workspaces",
     "build-esm": "npm run build-esm --workspaces",
     "test": "npm test --workspaces",

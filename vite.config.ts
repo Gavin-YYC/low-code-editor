@@ -1,4 +1,4 @@
-import {defineConfig} from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import svgr from 'vite-plugin-svgr';
@@ -12,7 +12,7 @@ import transformMobileHtml from './scripts/transformMobileHtml';
 import i18nPlugin from 'plugin-react-i18n';
 import i18nConfig from './i18nConfig';
 
-var I18N = process.env.I18N;
+const I18N = process.env.I18N;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -138,10 +138,10 @@ export default defineConfig({
         find: 'amis-editor-core',
         replacement: path.resolve(__dirname, './packages/amis-editor-core/src')
       },
-      {
-        find: 'office-viewer',
-        replacement: path.resolve(__dirname, './packages/office-viewer/src')
-      },
+      // {
+      //   find: 'office-viewer',
+      //   replacement: path.resolve(__dirname, './packages/office-viewer/src')
+      // },
       {
         find: 'amis-theme-editor-helper',
         replacement: path.resolve(

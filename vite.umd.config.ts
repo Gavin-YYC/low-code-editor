@@ -164,10 +164,10 @@ export default defineConfig({
         find: 'amis-editor-core',
         replacement: resolve(__dirname, './packages/amis-editor-core/src')
       },
-      {
-        find: 'office-viewer',
-        replacement: resolve(__dirname, './packages/office-viewer/src')
-      },
+      // {
+      //   find: 'office-viewer',
+      //   replacement: resolve(__dirname, './packages/office-viewer/src')
+      // },
       {
         find: 'amis-theme-editor-helper',
         replacement: resolve(__dirname, './packages/amis-theme-editor-helper/src')

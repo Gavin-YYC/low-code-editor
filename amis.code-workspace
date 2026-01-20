@@ -16,9 +16,9 @@
     {
       "path": "./packages/amis"
     },
-    {
-      "path": "./packages/office-viewer"
-    },
+    // {
+    //   "path": "./packages/office-viewer"
+    // },
     {
       "path": "./packages/amis-editor-core"
     },
