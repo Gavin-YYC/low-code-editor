@@ -1,0 +1,11 @@
+# /dist
+# lib
+# /esm
+# sdk
+/public
+/gh-pages
+/output
+/coverage
+/schema.json
+/npm
+/node_modules
